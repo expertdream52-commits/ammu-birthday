@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Ammu 🎂</title>
+
+<style>
+body {
+  margin: 0;
+  text-align: center;
+  font-family: Arial;
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  color: white;
+  overflow: hidden;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  top: 80px;
+}
+
+h1 {
+  font-size: 50px;
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px white; }
+  to { text-shadow: 0 0 30px yellow; }
+}
+
+p {
+  font-size: 22px;
+}
+
+.cake {
+  margin: 30px auto;
+  width: 150px;
+  height: 100px;
+  background: pink;
+  border-radius: 10px;
+  position: relative;
+}
+
+.candle {
+  width: 10px;
+  height: 30px;
+  background: yellow;
+  position: absolute;
+  top: -30px;
+  left: 70px;
+}
+
+.flame {
+  width: 10px;
+  height: 15px;
+  background: orange;
+  border-radius: 50%;
+  animation: flicker 0.3s infinite;
+}
+
+@keyframes flicker {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+
+.slideshow {
+  width: 250px;
+  height: 250px;
+  margin: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  animation: slide 12s infinite;
+}
+
+.slideshow img:nth-child(1) { animation-delay: 0s; }
+.slideshow img:nth-child(2) { animation-delay: 4s; }
+.slideshow img:nth-child(3) { animation-delay: 8s; }
+
+@keyframes slide {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  30% { opacity: 1; }
+  40% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="container">
+  <h1>🎉 Happy Birthday Ammu 🎂</h1>
+
+  <p>
+    Dear Ammu 💖 <br><br>
+    You are the most special person in my life ❤️<br>
+    May your day be filled with happiness, love & surprises 🎁✨<br><br>
+    Enjoy your day 🥳
+  </p>
+
+  <div class="cake">
+    <div class="candle">
+      <div class="flame"></div>
+    </div>
+  </div>
+
+  <div class="slideshow">
+    <img src="https://picsum.photos/id/1011/400/400">
+    <img src="https://picsum.photos/id/1025/400/400">
+    <img src="https://picsum.photos/id/1035/400/400">
+  </div>
+</div>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mp3">
+</audio>
+
+<script>
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+function createFirework() {
+  let x = Math.random() * canvas.width;
+  let y = Math.random() * canvas.height / 2;
+  for (let i = 0; i < 50; i++) {
+    particles.push({
+      x: x,
+      y: y,
+      dx: (Math.random() - 0.5) * 5,
+      dy: (Math.random() - 0.5) * 5,
+      life: 100
+    });
+  }
+}
+
+function animate() {
+  ctx.fillStyle = "rgba(0,0,0,0.2)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach((p, i) => {
+    p.x += p.dx;
+    p.y += p.dy;
+    p.life--;
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(p.x, p.y, 2, 2);
+
+    if (p.life <= 0) particles.splice(i, 1);
+  });
+
+  requestAnimationFrame(animate);
+}
+
+setInterval(createFirework, 1000);
+animate();
+</script>
+
+</body>
+</html>
